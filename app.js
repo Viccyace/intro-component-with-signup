@@ -1,15 +1,20 @@
-const form = document.getElementById('form');
-const button = document.getElementById('button');
-const firstName = document.querySelector('.firstName');
-const lastName = document.querySelector('.lastName');
-const email = document.querySelector('.email');
-const password = document.querySelector('.password');
+const form = document.getElementById("form");
+const button = document.getElementById("button");
+const firstName = document.querySelector(".firstName");
+const firstNameMessage = document.querySelector("#firstName-error");
+const lastNameMessage = document.querySelector("#lastName-error");
+const emailMessage = document.querySelector("#email-error");
+const pwdMessage = document.querySelector("#password-error");
+const lastName = document.querySelector(".lastName");
+const email = document.querySelector(".email");
+const password = document.querySelector(".password");
+const togglePassword = document.getElementById("toggle-password");
 
 console.log(firstName);
 
 // console.log(firstName, lastName, email, password);
 
-form.addEventListener('submit', (e) => {
+form.addEventListener("submit", (e) => {
   e.preventDefault();
   const fName = firstName.value;
   const lName = lastName.value;
@@ -18,33 +23,49 @@ form.addEventListener('submit', (e) => {
   console.log(fName, lName, emailVal, passwordVal);
 
   // Check first name
-  if (fName === '') {
-    firstName.classList.add('error');
+  if (fName === "") {
+    firstNameMessage.innerHTML = "First name cannot be empty";
+    firstName.classList.add("error");
   } else {
-    firstName.classList.remove('error');
+    firstNameMessage.innerHTML = "";
+    firstName.classList.remove("error");
   }
   // Check last name
 
-  if (lName === '') {
-    lastName.classList.add('error');
+  if (lName === "") {
+    lastNameMessage.innerHTML = "Last name cannot be empty";
+    lastName.classList.add("error");
   } else {
-    lastName.classList.remove('error');
+    lastNameMessage.innerHTML = "";
+    lastName.classList.remove("error");
   }
   // Check email
 
-  if (!validateEmail(emailVal) || emailVal === '') {
-    email.classList.add('error');
+  if (!validateEmail(emailVal) || emailVal === "") {
+    emailMessage.innerHTML = "Email cannot be empty or is invalid";
+    email.classList.add("error");
   } else {
-    email.classList.remove('error');
+    emailMessage.innerHTML = "";
+    email.classList.remove("error");
   }
 
   // Check password
-
-  if (passwordVal === '') {
-    password.classList.add('error');
+  if (passwordVal === "") {
+    pwdMessage.innerHTML = "Password cannot be empty";
+    password.classList.add("error");
   } else {
-    password.classList.remove('error');
+    pwdMessage.innerHTML = "";
+    password.classList.remove("error");
   }
+});
+
+//Toggle password
+togglePassword.addEventListener("click", function () {
+  const type =
+    password.getAttribute("type") === "password" ? "text" : "password";
+  password.setAttribute("type", type);
+
+  this.textContent = type === "password" ? "👁️" : "👁️‍🗨️";
 });
 
 //Validate email
