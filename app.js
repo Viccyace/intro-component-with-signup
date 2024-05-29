@@ -10,9 +10,10 @@ const email = document.querySelector(".email");
 const password = document.querySelector(".password");
 const togglePassword = document.getElementById("toggle-password");
 
-console.log(firstName);
+const iconError = document.querySelectorAll(".icon-error");
+const lIconError = document.querySelectorAll(".licon-error");
 
-// console.log(firstName, lastName, email, password);
+console.log(firstName);
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -24,16 +25,18 @@ form.addEventListener("submit", (e) => {
 
   // Check first name
   if (fName === "") {
-    firstNameMessage.innerHTML = "First name cannot be empty";
+    firstNameMessage.textContent = "First name cannot be empty";
+    iconError.forEach((icon) => icon.classList.remove("hidden"));
     firstName.classList.add("error");
   } else {
     firstNameMessage.innerHTML = "";
+    iconError.forEach((icon) => icon.classList.add("hidden"));
     firstName.classList.remove("error");
   }
   // Check last name
 
   if (lName === "") {
-    lastNameMessage.innerHTML = "Last name cannot be empty";
+    lastNameMessage.textContent = "Last name cannot be empty";
     lastName.classList.add("error");
   } else {
     lastNameMessage.innerHTML = "";
@@ -59,16 +62,16 @@ form.addEventListener("submit", (e) => {
   }
 });
 
-//Toggle password
+// Toggle password
 togglePassword.addEventListener("click", function () {
   const type =
     password.getAttribute("type") === "password" ? "text" : "password";
   password.setAttribute("type", type);
 
-  this.textContent = type === "password" ? "👁️" : "👁️‍🗨️";
+  this.classList.toggle("fa-eye-slash");
 });
 
-//Validate email
+// Validate email
 function validateEmail(email) {
   var re =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
