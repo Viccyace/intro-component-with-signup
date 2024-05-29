@@ -169,7 +169,7 @@ small span {
   cursor: pointer;
 }
 
-/* Media Queries */
+/* Media Queries (Laptop screen) */
 @media screen and (max-width: 920px) {
   body {
     flex-direction: column;
@@ -208,6 +208,8 @@ small span {
     margin-bottom: 3em;
   }
 }
+
+/* Media Queries (Tablet screen) */
 @media screen and (max-width: 675px) {
   .container-text h1 {
     font-size: 2.2rem;
@@ -221,6 +223,7 @@ small span {
   }
 }
 
+/* Media Queries (Mobile screen) */
 @media screen and (max-width: 375px) {
   .container-text h1 {
     font-size: 1.8rem;
