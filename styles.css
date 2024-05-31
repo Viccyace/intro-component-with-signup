@@ -169,7 +169,8 @@ small span {
   cursor: pointer;
 }
 
-/* Media Queries (Laptop screen) */
+/* Media Queries 
+(Laptop screen) */
 @media screen and (max-width: 920px) {
   body {
     flex-direction: column;
