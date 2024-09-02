@@ -13,6 +13,8 @@ const togglePassword = document.getElementById("toggle-password");
 const iconError = document.querySelectorAll(".icon-error");
 const lIconError = document.querySelectorAll(".licon-error");
 
+let users = JSON.parse(localStorage.getItem("users")) || [];
+
 console.log(firstName);
 
 form.addEventListener("submit", (e) => {
@@ -21,9 +23,9 @@ form.addEventListener("submit", (e) => {
   const lName = lastName.value;
   const emailVal = email.value;
   const passwordVal = password.value;
+
   console.log(fName, lName, emailVal, passwordVal);
 
-  // Check first name
   if (fName === "") {
     firstNameMessage.textContent = "First name cannot be empty";
     iconError.forEach((icon) => icon.classList.remove("hidden"));
@@ -33,7 +35,6 @@ form.addEventListener("submit", (e) => {
     iconError.forEach((icon) => icon.classList.add("hidden"));
     firstName.classList.remove("error");
   }
-  // Check last name
 
   if (lName === "") {
     lastNameMessage.textContent = "Last name cannot be empty";
@@ -42,7 +43,6 @@ form.addEventListener("submit", (e) => {
     lastNameMessage.innerHTML = "";
     lastName.classList.remove("error");
   }
-  // Check email
 
   if (!validateEmail(emailVal) || emailVal === "") {
     emailMessage.innerHTML = "Email cannot be empty or is invalid";
@@ -52,7 +52,6 @@ form.addEventListener("submit", (e) => {
     email.classList.remove("error");
   }
 
-  // Check password
   if (passwordVal === "") {
     pwdMessage.innerHTML = "Password cannot be empty";
     password.classList.add("error");
@@ -60,9 +59,28 @@ form.addEventListener("submit", (e) => {
     pwdMessage.innerHTML = "";
     password.classList.remove("error");
   }
+
+  if (
+    fName !== "" &&
+    lName !== "" &&
+    validateEmail(emailVal) &&
+    passwordVal !== ""
+  ) {
+    const user = {
+      firstName: fName,
+      lastName: lName,
+      email: emailVal,
+      password: passwordVal,
+    };
+
+    users.push(user);
+    localStorage.setItem("users", JSON.stringify(users));
+
+    alert("Sign up successful!");
+    form.reset();
+  }
 });
 
-// Toggle password
 togglePassword.addEventListener("click", function () {
   const type =
     password.getAttribute("type") === "password" ? "text" : "password";
@@ -71,7 +89,6 @@ togglePassword.addEventListener("click", function () {
   this.classList.toggle("fa-eye-slash");
 });
 
-// Validate email
 function validateEmail(email) {
   var re =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
